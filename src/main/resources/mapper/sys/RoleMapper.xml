@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.warehouse.sys.mapper.RoleMapper">
+
+    <update id="deleteRolePermissionByRid">
+        delete from sys_role_permission where rid=#{rid};
+    </update>
+
+    <update id="deleteRoleUserByRid">
+        delete from sys_role_user where rid=#{rid};
+    </update>
+
+    <select id="selectRolePermissionByRid" resultType="java.lang.Integer">
+        select pid from sys_role_permission where rid=#{rid};
+    </select>
+
+    <insert id="saveRolePermission">
+        insert into sys_role_permission(rid,pid) values(#{rid},#{pid});
+    </insert>
+
+    <update id="deleteRoleUserByUid">
+        delete from sys_role_user where uid=#{uid};
+    </update>
+
+    <select id="selectRoleUserByUid" resultType="java.lang.Integer">
+        select rid from sys_role_user where uid=#{uid};
+    </select>
+
+    <insert id="saveRoleUser">
+        insert into sys_role_user(rid,uid) values (#{rid},#{uid});
+    </insert>
+</mapper>

@@ -1,0 +1,71 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: warehouse
+  datasource:
+    # 连接池相关配置
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/warehouse?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      password: YLM19980514i
+      max-active: 20
+      max-wait: 5000
+      initial-size: 1
+      filters: slf4j,stat,wall
+      validation-query: SELECT 'x' # 验证连接
+      enable: true
+      # 监控配置
+      stat-view-servlet:
+        enabled: true
+        login-username: root
+        login-password: root
+        url-pattern: /druid/*
+
+  # 配置thymeleaf
+  thymeleaf:
+    cache: false
+    enabled: true
+  # 配置devtools
+  devtools:
+    restart:
+      poll-interval: 3000ms
+      enabled: true
+      additional-paths:
+        - src/main/java
+      exclude:
+        - /static/**
+        - /tempaltes/**
+  # json处理配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+# 开启Mybatis的驼峰命名法
+mybatis-plus:
+  mapper-locations:
+    - classpath:mapper/*/*Mapper.xml
+  global-config:
+    db-config:
+      id-type: auto
+    banner: true
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # logback不支持
+#shiro的配置
+shiro:
+  hash-algorithm-name: md5
+  hash-iterations: 2
+  anon-urls:
+    - /index.html*
+    - /sys/toLogin*
+    - /login/login*
+    # 静态资源不拦截
+    - /resources/**
+  login-url: /index.html
+  log-out-url: /login/logout*
+  authc-ulrs:
+    - /**
+logging:
+  level:
+    root: info
